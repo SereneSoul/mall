@@ -26,7 +26,7 @@ public class DataSourceConfiguration {
         druidDataSource.setName(username);
         druidDataSource.setPassword(password);
         druidDataSource.setMaxActive(20);
-        druidDataSource.setMinIdle(15);
+        druidDataSource.setMinIdle(5);
         return druidDataSource;
     }
 }
