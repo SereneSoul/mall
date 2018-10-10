@@ -1,10 +1,9 @@
-package com.mmall.user.dao;
+package com.mmall.user.service;
 
 import com.mmall.user.entity.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-public interface UserMapper {
+public interface UserService {
     int deleteByPrimaryKey(Integer id);
 
     int insert(User record);
