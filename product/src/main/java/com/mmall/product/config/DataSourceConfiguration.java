@@ -23,7 +23,7 @@ public class DataSourceConfiguration {
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setDriverClassName(driverClassName);
         druidDataSource.setUrl(url);
-        druidDataSource.setName(username);
+        druidDataSource.setUsername(username);
         druidDataSource.setPassword(password);
         druidDataSource.setMaxActive(20);
         druidDataSource.setMinIdle(5);
