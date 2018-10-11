@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    driverClassName : com.mysql.jdbc.Driver
+    url : jdbc:mysql://116.196.119.6:3306/mall?useUnicode=true&characterEncoding=utf-8&autoReconnect=false&failOverReadOnly=false&useSSL=false
+    username : root
+    password : root
+  redis :
+   hostName : 116.196.119.6
+   port : 6379
+   timeout : 0
+   pool :
+      max-active: 8
+      max-idle: 8
+      max-wait: -1
+      min-idle: 0
+
+mybatis:
+  config :
+    file : mybatis-config.xml
+
+mapper:
+  path : /mappers/**.xml
+
+entity:
+  package : com.mmall.user.entity
+
+server :
+  port : 8081

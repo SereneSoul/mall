@@ -1,18 +1,22 @@
 package com.mmall.user.service;
 
+import com.mmall.user.common.ResponseResult;
 import com.mmall.user.entity.User;
-import org.springframework.stereotype.Service;
 
 public interface UserService {
-    int deleteByPrimaryKey(Integer id);
+    ResponseResult deleteByPrimaryKey(Integer id);
 
-    int insert(User record);
+    ResponseResult insert(User record);
 
     int insertSelective(User record);
 
     User selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(User record);
+    ResponseResult updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User record);
+    ResponseResult updateByPrimaryKey(User record);
+
+    ResponseResult selectByUsername(String username,String password);
+
+    ResponseResult selectUserList();
 }
