@@ -11,7 +11,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
-@EnableAutoConfiguration
 @Slf4j
 public class RedisConfiguration{
     /**
