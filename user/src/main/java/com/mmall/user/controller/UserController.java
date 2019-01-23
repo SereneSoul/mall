@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ public class UserController extends AppController{
     public ResponseResult login(String username, String password, HttpSession httpSession, HttpServletResponse httpServletResponse){
         ResponseResult result = userService.selectByUsername(username,password);
         if (result.isSuccess()) {
-            setLoginUser(httpSession.getId(), result.getData(), Const.RedisExTime);
+            setLoginUser(httpSession.getId(), result.getData(), Const.REDISEXTIME);
         }
         return result;
     }
@@ -51,6 +52,38 @@ public class UserController extends AppController{
         return result;
     }
 
+    @RequestMapping(value = "/forgetGetQuestion",method = RequestMethod.POST)
+    public ResponseResult forgetGetQuestion(String username){
+        return userService.forgetGetQuestion(username);
+    }
+
+    @RequestMapping(value = "/forgetCheckAnswer",method = RequestMethod.POST)
+    public ResponseResult forgetCheckAnswer(String username, String answer){
+        return userService.forgetCheckAnswer(username,answer);
+    }
+
+    @RequestMapping(value = "/forgetRestPassword",method = RequestMethod.POST)
+    public ResponseResult forgetRestPassword(String username, String password, String token){
+        return userService.forgetRestPassword(username,password,token);
+    }
+
+    @RequestMapping(value = "/resetPassword",method = RequestMethod.POST)
+    public ResponseResult resetPassword(HttpSession httpSession, String oldPassword, String newPassword){
+        ResponseResult result = new ResponseResult();
+        result.setSuccess(false);
+        User user = getLoginUser(httpSession.getId());
+        if(user == null){
+            result.setMsg("请先登录！");
+            return result;
+        }
+        result = userService.resetPassword(user.getUsername(),oldPassword,newPassword);
+        if (result.isSuccess()){
+            redisUtil.del(httpSession.getId());
+        }
+        return result;
+    }
+    
+
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     public ResponseResult delete(User user,HttpSession httpSession){
         ResponseResult result = new ResponseResult();
@@ -74,7 +107,7 @@ public class UserController extends AppController{
         ResponseResult result = new ResponseResult();
         User loginUser = getLoginUser(httpSession.getId());
         if (loginUser != null){
-            if(loginUser.getRole() == 1 || loginUser.getId() == user.getId()){
+            if(loginUser.getRole() == 1 || loginUser.getId().equals(user.getId())){
                 result = userService.updateByPrimaryKeySelective(user);
             }else{
                 result.setSuccess(false);

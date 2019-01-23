@@ -1,29 +1,38 @@
 spring:
   datasource:
     driverClassName : com.mysql.jdbc.Driver
-    url : jdbc:mysql://116.196.119.6:3306/mall?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&useSSL=false
-    username : root
-    password : root
-  redis :
-   hostName : 116.196.119.6
-   port : 6379
-   timeout : 0
+    url : jdbc:mysql://127.0.0.1:3306/mall?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&useSSL=false
+    username : mall
+    password : mall
+  redis:
+   hostName: 127.0.0.1
+   port: 6379
+   timeout: 0
    jedis:
-     pool :
+     pool:
         max-active: 8
         max-idle: 8
         max-wait: -1
         min-idle: 0
+    
 
 mybatis:
-  config :
-    file : mybatis-config.xml
+  config:
+    file: mybatis-config.xml
 
 mapper:
-  path : /mappers/**.xml
+  path: /mappers/**.xml
 
 entity:
-  package : com.mmall.user.entity
+  package: com.mmall.user.entity
 
-server :
+server:
   port : 8081
+
+dubbo:
+  application:
+    name: user
+  protocol:
+    name: zookeeper
+    host: 127.0.0.1:2181
+  

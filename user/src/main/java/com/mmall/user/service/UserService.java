@@ -19,4 +19,12 @@ public interface UserService {
     ResponseResult selectByUsername(String username,String password);
 
     ResponseResult selectUserList();
+    
+    ResponseResult forgetGetQuestion(String username);
+    
+    ResponseResult forgetCheckAnswer(String username, String answer);
+
+    ResponseResult forgetRestPassword(String username, String password, String token);
+
+    ResponseResult resetPassword(String username, String oldPassword, String newPassword);
 }
